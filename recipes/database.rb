@@ -1,36 +1,37 @@
+include_recipe 'postgresql::yum_pgdg_postgresql'
 include_recipe 'postgresql::server'
 include_recipe 'database::postgresql'
 
 database_connection = {
   host:     '127.0.0.1',
   username: 'postgres',
-  password: node[:postgresql][:password][:postgres]
+  password: node['postgresql']['password']['postgres']
 }.freeze
 
-postgresql_database_user node[:teamcity][:database][:username] do
+postgresql_database_user node['teamcity']['database']['username'] do
   connection database_connection
-  password node[:postgresql][:password][:teamcity]
+  password node['postgresql']['password']['teamcity']
   action :create
 end
 
-postgresql_database node[:teamcity][:database][:name] do
+postgresql_database node['teamcity']['database']['name'] do
   connection database_connection
-  owner node[:teamcity][:database][:username]
+  owner node['teamcity']['database']['username']
   action :create
 end
 
-remote_file "#{node[:teamcity][:data_path]}/lib/jdbc/postgresql-9.2-1003.jdbc4.jar" do
-  source "http://jdbc.postgresql.org/download/postgresql-9.2-1003.jdbc4.jar"
-  owner node[:teamcity][:database][:username]
+remote_file "#{node['teamcity']['data_path']}/lib/jdbc/postgresql-9.2-1004.jdbc4.jar" do
+  source "http://jdbc.postgresql.org/download/postgresql-9.2-1004.jdbc4.jar"
+  owner node['teamcity']['database']['username']
   action :create_if_missing
 end
 
 template "database.properties" do
-  path "#{node[:teamcity][:data_path]}/config/database.properties"
-  owner node[:teamcity][:user]
+  path "#{node['teamcity']['data_path']}/config/database.properties"
+  owner node['teamcity']['user']
   mode 0600
-  variables name: node[:teamcity][:database][:name],
-            username: node[:teamcity][:database][:username],
-            password: node[:postgresql][:password][:teamcity]
+  variables name: node['teamcity']['database']['name'],
+            username: node['teamcity']['database']['username'],
+            password: node['postgresql']['password']['teamcity']
   notifies :restart, "service[teamcity-server]"
 end

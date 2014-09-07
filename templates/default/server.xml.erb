@@ -67,7 +67,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
-    <Connector port="<%= node[:teamcity][:port] %>" protocol="org.apache.coyote.http11.Http11NioProtocol"
+    <Connector port="<%= node['teamcity']['port'] %>" protocol="org.apache.coyote.http11.Http11NioProtocol"
                 connectionTimeout="60000"
                 redirectPort="8443"
                 useBodyEncodingForURI="true"
@@ -137,7 +137,7 @@
                resourceName="UserDatabase"/>
       </Realm>
 
-      <Host name="<%= node[:teamcity][:host] %>"  appBase="webapps"
+      <Host name="<%= node['teamcity']['host'] %>"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
 
         <!-- SingleSignOn valve, share authentication between web applications

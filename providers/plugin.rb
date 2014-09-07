@@ -4,10 +4,10 @@ action :install do
     action :nothing
   end
 
-  plugins_dir = "#{node[:teamcity][:data_path]}/plugins"
+  plugins_dir = "#{node['teamcity']['data_path']}/plugins"
 
   directory plugins_dir do
-    owner node[:teamcity][:user]
+    owner node['teamcity']['user']
   end
 
   path = "#{plugins_dir}/#{::File.basename(new_resource.url)}"

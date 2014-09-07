@@ -1,4 +1,19 @@
 #!/bin/sh -e
+#
+# rc file for TeamCity Agent
+#
+# chkconfig: 345 96 10
+# description: TeamCity Agent (http://jetbrains.com/teamcity/)
+#
+### BEGIN INIT INFO
+# Provides: teamcity
+# Required-Start: $network
+# Required-Stop: $network
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Short-Description: TeamCity Agent (http://jetbrains.com/teamcity/)
+# Description: TeamCity Agent (http://jetbrains.com/teamcity/)
+### END INIT INFO
 
 cd <%= @path %>
 
