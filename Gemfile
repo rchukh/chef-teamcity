@@ -2,16 +2,19 @@ source 'https://rubygems.org'
 
 gem 'rake'
 
-gem 'chef', '~> 11.6.2'
-gem 'berkshelf', '~> 2.0'
+group :development do
+  gem 'berkshelf'
+  gem 'test-kitchen'
+  gem 'kitchen-vagrant'
+end
 
-gem 'foodcritic', '~> 3.0'
-gem 'test-kitchen'
-gem 'kitchen-vagrant'
-gem 'chefspec'
-gem 'rubocop'
+group :lint do
+  gem 'foodcritic', '~> 4.0'
+  gem 'rubocop',    '~> 0.26'
+end
 
-gem 'pry'
-gem 'pry-byebug'
-gem 'pry-stack_explorer'
-gem 'pry-rails'
+group :unit do
+  gem 'chefspec',  '~> 4.0'
+  gem 'busser-bats'
+  gem 'busser-minitest'
+end

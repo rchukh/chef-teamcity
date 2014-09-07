@@ -1,6 +1,22 @@
 #!/bin/sh -e
+#
+# rc file for TeamCity Server
+#
+# chkconfig: 345 96 10
+# description: TeamCity Server (http://jetbrains.com/teamcity/)
+#
+### BEGIN INIT INFO
+# Provides: teamcity
+# Required-Start: $network
+# Required-Stop: $network
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Short-Description: TeamCity Server (http://jetbrains.com/teamcity/)
+# Description: TeamCity Server (http://jetbrains.com/teamcity/)
+### END INIT INFO
 
-export TEAMCITY_DATA_PATH=<%= @data_path %> CATALINA_PID=<%= @pid_file %>
+export TEAMCITY_DATA_PATH=<%= @data_path %>
+export CATALINA_PID=<%= @pid_file %>
 
 cd <%= @path %>
 

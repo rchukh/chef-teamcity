@@ -1,23 +1,33 @@
 ---
-driver:
-  name: vagrant
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
 
 platforms:
-  - name: ubuntu-13.04-teamcity
+#  - name: ubuntu-13.04-teamcity
+  - name: centos-6.5
+    driver:
+      customize:
+        memory: 2048
 
 provisioner:
+  name: chef_solo
   solo_rb:
-    file_cache_path: /var/chef/cache/
+      ssl_verify_mode: verify_peer
+      file_cache_path: /var/chef/cache/
 
 suites:
   - name: default
-    run_list: 
-      - recipe[teamcity]
-      - recipe[teamcity::monit]
-      - recipe[teamcity::test]
-      - recipe[minitest-handler]
+    run_list:
+      - recipe[yum-epel]
+      - recipe[teamcity::default]
     attributes: {
       postgresql: {
+        enable_pgdg_yum: true,
+        version: '9.2',
+        contrib: {
+          packages: []
+        },
         password: {
           postgres: 'pass123',
           teamcity: 'pass456'
