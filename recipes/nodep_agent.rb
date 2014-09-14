@@ -1,4 +1,7 @@
-include_recipe "#{cookbook_name}::services"
+service "teamcity-agent" do
+  supports start: true, stop: true, restart: true
+  action :nothing
+end
 
 template "init.agent" do
   path "/etc/init.d/teamcity-agent"

@@ -4,13 +4,11 @@
 Downloads, installs and configures [TeamCity](http://www.jetbrains.com/teamcity/). It also installs [PostgreSQL](https://github.com/opscode-cookbooks/postgresql) and uses it as the backend database for TeamCity.
 
 # Platforms
-* Debian
-* Ubuntu
 * Centos
 
 Tested on:
 
-* Ubuntu 13.04
+* Centos 6.5
 
 # Recipes
 * ```teamcity::default``` - installs PostgreSQL, TeamCity server and agent
@@ -43,14 +41,6 @@ teamcity_plugin 'http://teamcity.jetbrains.com/guestAuth/repository/download/bt3
 ```
 
 It will download and move `teamcity.github.zip` to the `plugins` directory under `node[:teamcity][:data_path]`.
-
-# Testing
-
-Run [test kitchen](https://github.com/opscode/test-kitchen) integration suite:
-
-```bash
-bundle exec kitchen test
-```
 
 ## License and Authors
 
