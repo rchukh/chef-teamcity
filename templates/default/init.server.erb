@@ -15,21 +15,28 @@
 # Description: TeamCity Server (http://jetbrains.com/teamcity/)
 ### END INIT INFO
 
-export TEAMCITY_DATA_PATH=<%= @data_path %>
-export CATALINA_PID=<%= @pid_file %>
+# Source networking configuration.
+if [ -f /etc/sysconfig/teamcity-server ] ; then
+  . /etc/sysconfig/teamcity-server
+else
+  echo "No teamcity server configuration"
+  exit 0
+fi
 
-cd <%= @path %>
-
-case $1 in
+case "$1" in
   start)
-    su -l -p -c '<%= @path %>/bin/teamcity-server.sh start' <%= @user %>
-  ;;
+        su -s /bin/bash -p -c "cd $TEAMCITY_DIR && bin/teamcity-server.sh start" $TEAMCITY_USER
+        ;;
   stop)
-    su -l -p -c '<%= @path %>/bin/teamcity-server.sh stop' <%= @user %>
-  ;;
+        su -s /bin/bash -p -c "cd $TEAMCITY_DIR && bin/teamcity-server.sh stop" $TEAMCITY_USER
+        ;;
   restart)
-    $0 stop && $0 start
-  ;;
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 1
 esac
-
+        
 exit 0

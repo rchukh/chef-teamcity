@@ -4,11 +4,6 @@ metadata
 
 cookbook 'chef-sugar'
 
-cookbook 'build-essential'
-
-cookbook 'apt', '~> 2.3.0'
-cookbook 'yum-epel'
-
 cookbook 'postgresql'
 cookbook 'database'
 

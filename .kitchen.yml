@@ -7,8 +7,13 @@ platforms:
 #  - name: ubuntu-13.04-teamcity
   - name: centos-6.5
     driver:
+      network:
+        forwarded_port: {
+          guest: 8111,
+          host: 8111
+        }
       customize:
-        memory: 2048
+        memory: 512
 
 provisioner:
   name: chef_solo
@@ -19,9 +24,11 @@ provisioner:
 suites:
   - name: default
     run_list:
-      - recipe[yum-epel]
       - recipe[teamcity::default]
     attributes: {
+      java: {
+        jdk_version: '7'
+      },
       postgresql: {
         enable_pgdg_yum: true,
         version: '9.2',

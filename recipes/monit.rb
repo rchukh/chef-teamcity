@@ -1,11 +1,2 @@
-include_recipe 'monit::default'
-
-monit_monitrc 'teamcity-server' do
-  variables pid_file: node['teamcity']['server']['pid_file'],
-            host: node['teamcity']['host'],
-            port: node['teamcity']['port']
-end
-
-monit_monitrc 'teamcity-agent' do
-  variables pid_file: node['teamcity']['agent']['pid_file']
-end
+include_recipe "#{cookbook_name}::monit_server"
+include_recipe "#{cookbook_name}::monit_agent"
